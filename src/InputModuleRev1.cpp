@@ -113,22 +113,31 @@ void BrytecBoard::setPinValue(uint8_t index, IOTypes::Types type, float value)
     switch (index) {
     case BT_PIN_Black_2:
         state ? PORTE |= (1 << PIN3) : PORTE &= ~(1 << PIN3); // Black 2
+        break;
     case BT_PIN_Black_11:
         state ? PORTF |= (1 << PIN4) : PORTF &= ~(1 << PIN4); // Black 11
+        break;
     case BT_PIN_Black_13:
         state ? PORTH |= (1 << PIN5) : PORTH &= ~(1 << PIN5); // Black 13
+        break;
     case BT_PIN_Black_14:
         state ? PORTH |= (1 << PIN3) : PORTH &= ~(1 << PIN3); // Black 14
+        break;
     case BT_PIN_Black_15:
         state ? PORTH |= (1 << PIN1) : PORTH &= ~(1 << PIN1); // Black 15
+        break;
     case BT_PIN_Black_22:
         state ? PORTF |= (1 << PIN6) : PORTF &= ~(1 << PIN6); // Black 22
+        break;
     case BT_PIN_Black_33:
         state ? PORTF |= (1 << PIN5) : PORTF &= ~(1 << PIN5); // Black 33
+        break;
     case BT_PIN_Black_34:
         state ? PORTF |= (1 << PIN2) : PORTF &= ~(1 << PIN2); // Black 34
+        break;
     case BT_PIN_Blue_13:
         state ? PORTL |= (1 << PIN3) : PORTL &= ~(1 << PIN3); // Blue 13
+        break;
     }
 }
 

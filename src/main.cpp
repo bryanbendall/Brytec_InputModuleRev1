@@ -10,7 +10,6 @@ EBrytecApp app;
 
 // Variables
 volatile uint64_t milli = 0;
-bool timerState = false;
 static uint64_t lastMillis = 0;
 
 // Timer0 overflow interrupt
@@ -50,30 +49,12 @@ void OutputStateAndPullups()
 
 void SetUpTimer0()
 {
-    timerState = true;
-    // TCCR0A = 0;
-    // TCCR0B |= (1 << CS02) | (1 << CS00); // Clock divided by 1024
-    // OCR0A = 15; // Output compare 0A at 15 aprox every 1ms
-
     OCR0A = 249;
     TCCR0A = 2;
     TCCR0B = 3;
 
     TIMSK0 |= (1 << OCIE0A); // Enable output compare 0A interrupt
     sei(); // Enable interrupts
-}
-
-void Timer0IntOff()
-{
-    timerState = false;
-    TIMSK0 &= ~(1 << OCIE0A);
-    milli = 0;
-}
-
-void Timer0IntOn()
-{
-    timerState = true;
-    TIMSK0 |= (1 << OCIE0A);
 }
 
 void SetUpADC()
