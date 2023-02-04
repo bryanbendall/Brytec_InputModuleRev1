@@ -25,7 +25,7 @@ void DataDirections()
     DDRB |= (1 << PINB4) | (1 << PINB5);
     DDRC = 0b00010000;
     DDRD = 0b00000000;
-    DDRE = 0b01111000;
+    DDRE = 0b00001000;
     DDRF = 0b01110100;
     DDRH = 0b11111111;
     DDRJ = 0b00000000;
