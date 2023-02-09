@@ -109,9 +109,9 @@ float BrytecBoard::getPinValue(uint8_t index)
 
     // Analog
     case BT_PIN_Black_10:
-        return AnalogVoltage(ADC1D); // Black 10 PF3 ADC3
+        return AnalogVoltage(ADC3D); // Black 10 PF3 ADC3
     case BT_PIN_Black_21:
-        return AnalogVoltage(ADC3D); // Black 21 PF1 ADC1
+        return AnalogVoltage(ADC1D); // Black 21 PF1 ADC1
     case BT_PIN_Black_35:
         return AnalogVoltage(ADC7D); // Black 35 PF7 ADC7
     }

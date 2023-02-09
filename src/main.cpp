@@ -25,7 +25,7 @@ void DataDirections()
     DDRB |= (1 << PINB4) | (1 << PINB5);
     DDRC = 0b00000000;
     DDRD = 0b00000000;
-    DDRE = 0b00001000;
+    DDRE = 0b00001100;
     DDRF = 0b01110100;
     DDRH = 0b11111111;
     DDRJ = 0b00000000;
@@ -37,9 +37,9 @@ void OutputStateAndPullups()
 {
     // Outputs state low and pullup resistors on
     PORTA = 0b11110000;
-    PORTC = 0b11101111;
+    PORTC = 0b11111111;
     PORTD = 0b11111111;
-    PORTE = 0b10100100;
+    PORTE = 0b11110000;
     PORTF |= (1 << PINF0) | (1 << PINF7);
     PORTH = 0b00000000;
     PORTJ = 0b11111111;
@@ -100,7 +100,7 @@ int main()
             lastMillis = milli;
 
             app.update(timestep);
-            checkCan();
+            // checkCan();
 
         }
     }
