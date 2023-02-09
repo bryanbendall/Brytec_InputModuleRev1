@@ -63,8 +63,6 @@ float BrytecBoard::getPinValue(uint8_t index)
         return !(PINK & (1 << PIN1)); // Black 20
     case BT_PIN_Black_28:
         return !(PINC & (1 << PIN3)); // Black 28
-    case BT_PIN_Black_31:
-        return !(PINK & (1 << PIN2)); // Black 31
     case BT_PIN_Black_32:
         return !(PINK & (1 << PIN0)); // Black 32
 
@@ -80,6 +78,15 @@ float BrytecBoard::getPinValue(uint8_t index)
         return !(PINK & (1 << PIN7));
     case BT_PIN_Black_19:
         return !(PINK & (1 << PIN4));
+
+    case BT_PIN_Black_17:
+        return !(PINC & (1 << PIN4));
+    case BT_PIN_Black_29:
+        return !(PINC & (1 << PIN5));
+    case BT_PIN_Black_30:
+        return !(PINK & (1 << PIN5));
+    case BT_PIN_Black_31:
+        return !(PINK & (1 << PIN2));
 
     case BT_PIN_Blue_5:
         return !(PIND & (1 << PIN4)); // Blue 5

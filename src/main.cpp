@@ -23,7 +23,7 @@ void DataDirections()
     // Data direction
     DDRA = 0b00001111;
     DDRB |= (1 << PINB4) | (1 << PINB5);
-    DDRC = 0b00010000;
+    DDRC = 0b00000000;
     DDRD = 0b00000000;
     DDRE = 0b00001000;
     DDRF = 0b01110100;

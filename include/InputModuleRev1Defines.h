@@ -34,3 +34,6 @@
 #define BT_PIN_Black_7 31
 #define BT_PIN_Black_18 32
 #define BT_PIN_Black_19 33
+#define BT_PIN_Black_17 34
+#define BT_PIN_Black_29 35
+#define BT_PIN_Black_30 36
