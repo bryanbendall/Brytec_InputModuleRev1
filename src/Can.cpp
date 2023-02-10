@@ -102,7 +102,7 @@ EBrytecCan::CanExtFrame Can::GetCanMsg()
         ModifyRegister(CANINTF, 0x02, 0);
     }
 
-    uint32_t idA = (id1 << 3) & (id2 >> 5);
+    uint32_t idA = ((id1 << 3) & 0x07f8) | ((id2 >> 5) & 0x07);
     uint32_t idB = (((id2 & 0x03) << 16) & 0x30000) | ((id3 << 8) & 0xff00) | id4;
     msg.id = (idA << 18) | idB;
 

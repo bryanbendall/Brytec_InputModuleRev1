@@ -19,8 +19,8 @@ void BrytecBoard::setupPin(uint8_t index, IOTypes::Types type)
 
 float AnalogVoltage(int pin)
 {
-    while ((ADCSRA & (1 << ADSC)))
-        ; // Wait until adc is not doing conversion
+    // while ((ADCSRA & (1 << ADSC)))
+        // ; // Wait until adc is not doing conversion
 
     ADMUX &= ~(1 << MUX0 | 1 << MUX1 | 1 << MUX2 | 1 << MUX3 | 1 << MUX4); // Clear selected channel
     ADCSRB = 0;

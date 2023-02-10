@@ -100,8 +100,7 @@ int main()
             lastMillis = milli;
 
             app.update(timestep);
-            // checkCan();
-
+            checkCan();
         }
     }
 }
