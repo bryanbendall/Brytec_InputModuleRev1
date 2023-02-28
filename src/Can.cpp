@@ -6,10 +6,10 @@
 Spi spi;
 
 // Public
-void Can::Init(int ssPin, int interruptPin, int speed, uint8_t idType, uint16_t filter)
+void Can::Init(int ssPin, int speed, uint8_t idType, uint32_t mask, uint32_t filter)
 {
     spi.SpiInit(ssPin);
-    CanInit(speed, idType, filter);
+    CanInit(speed, idType, mask, filter);
 }
 
 void Can::SendCanMsg(EBrytecCan::CanExtFrame msg)
@@ -256,13 +256,13 @@ void Can::ConfigSpeed(uint8_t speed)
     SetRegister(CNF3, cfg3);
 }
 
-void Can::CanInit(uint8_t speed, uint8_t idType, uint16_t filter)
+void Can::CanInit(uint8_t speed, uint8_t idType, uint32_t mask, uint32_t filter)
 {
     Reset();
     SetControlMode(CAN_MODE_CONFIG);
     ConfigSpeed(speed);
     // interrupts for message received
-    SetRegister(CANINTE, (1 << RX1IE & 1 << RX0IE));
+    SetRegister(CANINTE, ((1 << RX1IE) | (1 << RX0IE)));
     // ids
     ModifyRegister(RXB0CTRL, CAN_RXROLLOVR, CAN_RXROLLOVR); // Enable rollover
     switch (idType) {
@@ -279,16 +279,54 @@ void Can::CanInit(uint8_t speed, uint8_t idType, uint16_t filter)
         ModifyRegister(RXB1CTRL, CAN_RXID_MASK, CAN_ID_ANY);
         break;
     }
-    // Masks
-    // SetRegister(RXM0SIDH, 0xFF);
-    // SetRegister(RXM0SIDL, 0xE0);
-    // SetRegister(RXM1SIDH, 0xFF);
-    // SetRegister(RXM1SIDL, 0xE0);
-    // Filters
-    // SetRegister(RXF0SIDH, filter >> 3);
-    // SetRegister(RXF0SIDL, filter << 5);
-    // SetRegister(RXF1SIDH, filter >> 3);
-    // SetRegister(RXF1SIDL, filter << 5);
+
+    SetMaskAndFilter(mask, filter);
 
     SetControlMode(CAN_MODE_NORMAL);
+}
+
+void Can::SetMaskAndFilter(uint32_t mask, uint32_t filter)
+{
+    return;
+    // Mask
+    SetRegister(RXM0SIDH, mask >> 21);
+    SetRegister(RXM0SIDL, (((mask >> 18) & 0x03) << 5) | 0x08 | ((mask >> 16) & 0x03));
+    SetRegister(RXM0EID8, (mask >> 8) & 0xff);
+    SetRegister(RXM0EID0, mask & 0xff);
+
+    SetRegister(RXM1SIDH, mask >> 21);
+    SetRegister(RXM1SIDL, (((mask >> 18) & 0x03) << 5) | 0x08 | ((mask >> 16) & 0x03));
+    SetRegister(RXM1EID8, (mask >> 8) & 0xff);
+    SetRegister(RXM1EID0, mask & 0xff);
+
+    // Filter
+    SetRegister(RXF0SIDH, filter >> 21);
+    SetRegister(RXF0SIDL, (((filter >> 18) & 0x03) << 5) | 0x08 | ((filter >> 16) & 0x03));
+    SetRegister(RXF0EID8, (filter >> 8) & 0xff);
+    SetRegister(RXF0EID0, filter & 0xff);
+
+    SetRegister(RXF1SIDH, filter >> 21);
+    SetRegister(RXF1SIDL, (((filter >> 18) & 0x03) << 5) | 0x08 | ((filter >> 16) & 0x03));
+    SetRegister(RXF1EID8, (filter >> 8) & 0xff);
+    SetRegister(RXF1EID0, filter & 0xff);
+
+    SetRegister(RXF2SIDH, filter >> 21);
+    SetRegister(RXF2SIDL, (((filter >> 18) & 0x03) << 5) | 0x08 | ((filter >> 16) & 0x03));
+    SetRegister(RXF2EID8, (filter >> 8) & 0xff);
+    SetRegister(RXF2EID0, filter & 0xff);
+
+    SetRegister(RXF3SIDH, filter >> 21);
+    SetRegister(RXF3SIDL, (((filter >> 18) & 0x03) << 5) | 0x08 | ((filter >> 16) & 0x03));
+    SetRegister(RXF3EID8, (filter >> 8) & 0xff);
+    SetRegister(RXF3EID0, filter & 0xff);
+
+    SetRegister(RXF4SIDH, filter >> 21);
+    SetRegister(RXF4SIDL, (((filter >> 18) & 0x03) << 5) | 0x08 | ((filter >> 16) & 0x03));
+    SetRegister(RXF4EID8, (filter >> 8) & 0xff);
+    SetRegister(RXF4EID0, filter & 0xff);
+
+    SetRegister(RXF5SIDH, filter >> 21);
+    SetRegister(RXF5SIDL, (((filter >> 18) & 0x03) << 5) | 0x08 | ((filter >> 16) & 0x03));
+    SetRegister(RXF5EID8, (filter >> 8) & 0xff);
+    SetRegister(RXF5EID0, filter & 0xff);
 }

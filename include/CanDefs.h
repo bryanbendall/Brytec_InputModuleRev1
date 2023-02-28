@@ -119,9 +119,9 @@
 #define RXF3EID8 0x12
 #define RXF3EID0 0x13
 #define RXF4SIDH 0x14
-#define RXFSIDL 0x15
-#define RXFEID8 0x16
-#define RXFEID0 0x17
+#define RXF4SIDL 0x15
+#define RXF4EID8 0x16
+#define RXF4EID0 0x17
 #define RXF5SIDH 0x18
 #define RXF5SIDL 0x19
 #define RXF5EID8 0x1A

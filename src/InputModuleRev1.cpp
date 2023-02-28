@@ -9,7 +9,7 @@ void BrytecBoard::error(EBrytecErrors error)
 
 void BrytecBoard::setupBrytecCan(uint32_t mask, uint32_t filter)
 {
-    Can::Init(B0, 0, CAN1MBPS, CAN_ID_EXT, 0);
+    Can::Init(B0, CAN1MBPS, CAN_ID_EXT, mask, filter);
 }
 
 void BrytecBoard::setupPin(uint8_t index, IOTypes::Types type)
