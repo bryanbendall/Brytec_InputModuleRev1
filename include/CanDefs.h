@@ -34,6 +34,7 @@
 #define CAN_MODE_POWERUP 0xE0
 
 // Speeds
+#define CAN1MBPS 0
 #define CAN500kBPS 1
 #define CAN250kBPS 2
 #define CAN200kBPS 3
@@ -47,6 +48,10 @@
 #define CAN5kBPS 11
 
 // Speed CFGs
+#define S1MBPS_CFG1 (0x00)
+#define S1MBPS_CFG2 (0xd0)
+#define S1MBPS_CFG3 (0x82)
+
 #define S500kBPS_CFG1 (0x00)
 #define S500kBPS_CFG2 (0xb0)
 #define S500kBPS_CFG3 (0x06)

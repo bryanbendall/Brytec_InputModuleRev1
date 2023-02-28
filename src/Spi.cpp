@@ -18,7 +18,8 @@ void Spi::SpiInit(int ssPin)
     SSDisable();
 
     DDRB |= (1 << PINB2) | (1 << PINB1); // Set MOSI and SCK output
-    SPCR |= (1 << SPE) | (1 << MSTR) | (1 << SPR1) | (1 << SPR0); // Enable SPI, Master, clock rate to fck/128
+    SPCR |= (1 << SPE) | (1 << MSTR); // Enable SPI, Master
+    SPSR |= (1 << SPI2X); // clock rate fck/2
 }
 
 char Spi::SpiTransfer(char data)

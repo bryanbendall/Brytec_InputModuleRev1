@@ -59,7 +59,8 @@ EBrytecCan::CanExtFrame Can::GetCanMsg()
 {
     EBrytecCan::CanExtFrame msg;
     uint32_t id1, id2, id3, id4;
-    if (ReadRxStatus() & 0x40) { // Message in RXB0
+    uint8_t rxStatus = ReadRxStatus();
+    if (rxStatus & 0x40) { // Message in RXB0
         spi.SSEnable();
         spi.SpiTransfer(CAN_READ);
         spi.SpiTransfer(CAN_READRX0BUFF);
@@ -80,7 +81,7 @@ EBrytecCan::CanExtFrame Can::GetCanMsg()
 
         ModifyRegister(CANINTF, 0x01, 0);
 
-    } else if (ReadRxStatus() & 0x80) { // Message in RXB1
+    } else if (rxStatus & 0x80) { // Message in RXB1
         spi.SSEnable();
         spi.SpiTransfer(CAN_READ);
         spi.SpiTransfer(CAN_READRX1BUFF);
@@ -88,7 +89,7 @@ EBrytecCan::CanExtFrame Can::GetCanMsg()
         id2 = spi.SpiTransfer(0x00);
         id3 = spi.SpiTransfer(0x00);
         id4 = spi.SpiTransfer(0x00);
-        msg.id = spi.SpiTransfer(0x00);
+        msg.dlc = spi.SpiTransfer(0x00);
         msg.data[0] = spi.SpiTransfer(0x00);
         msg.data[1] = spi.SpiTransfer(0x00);
         msg.data[2] = spi.SpiTransfer(0x00);
@@ -177,6 +178,12 @@ void Can::ConfigSpeed(uint8_t speed)
 {
     uint8_t cfg1, cfg2, cfg3;
     switch (speed) {
+    case (CAN1MBPS):
+        cfg1 = S1MBPS_CFG1;
+        cfg2 = S1MBPS_CFG1;
+        cfg3 = S1MBPS_CFG1;
+        break;
+
     case (CAN5kBPS):
         cfg1 = S5kBPS_CFG1;
         cfg2 = S5kBPS_CFG2;
