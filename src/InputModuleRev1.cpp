@@ -12,7 +12,7 @@ void BrytecBoard::setupBrytecCan(uint32_t mask, uint32_t filter)
     Can::Init(B0, CAN1MBPS, CAN_ID_EXT, mask, filter);
 }
 
-void BrytecBoard::setupPin(uint8_t index, IOTypes::Types type)
+void BrytecBoard::setupPin(uint16_t index, IOTypes::Types type)
 {
     // Done in main file
 }
@@ -47,7 +47,7 @@ float AnalogVoltage(int pin)
     return (float)reading / (1023.0f / 5.0f);
 }
 
-float BrytecBoard::getPinValue(uint8_t index)
+float BrytecBoard::getPinValue(uint16_t index)
 {
     switch (index) {
     case BT_PIN_Black_1:
@@ -116,19 +116,19 @@ float BrytecBoard::getPinValue(uint8_t index)
     return 0.0f;
 }
 
-float BrytecBoard::getPinVoltage(uint8_t index)
+float BrytecBoard::getPinVoltage(uint16_t index)
 {
     // Not supported
     return 0.0f;
 }
 
-float BrytecBoard::getPinCurrent(uint8_t index)
+float BrytecBoard::getPinCurrent(uint16_t index)
 {
     // Not supported for this module
     return 0.0f;
 }
 
-void BrytecBoard::setPinValue(uint8_t index, IOTypes::Types type, float value)
+void BrytecBoard::setPinValue(uint16_t index, IOTypes::Types type, float value)
 {
     bool state = value > 0.001f;
     switch (index) {
