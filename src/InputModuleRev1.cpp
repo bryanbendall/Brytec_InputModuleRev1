@@ -3,6 +3,8 @@
 #include "Can.h"
 #include "InputModuleRev1Defines.h"
 
+namespace Brytec {
+
 void BrytecBoard::error(EBrytecErrors error)
 {
 }
@@ -162,7 +164,9 @@ void BrytecBoard::setPinValue(uint16_t index, IOTypes::Types type, float value)
     }
 }
 
-void BrytecBoard::sendBrytecCan(EBrytecCan::CanExtFrame frame)
+void BrytecBoard::sendBrytecCan(CanExtFrame frame)
 {
     Can::SendCanMsg(frame);
+}
+
 }

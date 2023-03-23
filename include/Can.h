@@ -10,9 +10,9 @@ class Can {
 
 public:
     static void Init(int ssPin, int speed, uint8_t idType, uint32_t mask, uint32_t filter);
-    static void SendCanMsg(EBrytecCan::CanExtFrame msg);
+    static void SendCanMsg(Brytec::CanExtFrame msg);
     static bool Available();
-    static EBrytecCan::CanExtFrame GetCanMsg();
+    static Brytec::CanExtFrame GetCanMsg();
 
 private:
     static void Reset();

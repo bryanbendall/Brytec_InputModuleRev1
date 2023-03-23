@@ -12,7 +12,7 @@ void Can::Init(int ssPin, int speed, uint8_t idType, uint32_t mask, uint32_t fil
     CanInit(speed, idType, mask, filter);
 }
 
-void Can::SendCanMsg(EBrytecCan::CanExtFrame msg)
+void Can::SendCanMsg(Brytec::CanExtFrame msg)
 {
     char temp;
     char status = 1;
@@ -55,9 +55,9 @@ bool Can::Available()
     }
 }
 
-EBrytecCan::CanExtFrame Can::GetCanMsg()
+Brytec::CanExtFrame Can::GetCanMsg()
 {
-    EBrytecCan::CanExtFrame msg;
+    Brytec::CanExtFrame msg;
     uint32_t id1, id2, id3, id4;
     uint8_t rxStatus = ReadRxStatus();
     if (rxStatus & 0x40) { // Message in RXB0

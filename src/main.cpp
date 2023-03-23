@@ -6,7 +6,7 @@
 #include <avr/interrupt.h>
 #include <util/atomic.h>
 
-EBrytecApp app;
+Brytec::EBrytecApp app;
 
 // Variables
 volatile uint64_t milli = 0;
@@ -67,7 +67,7 @@ void SetUpADC()
 void checkCan()
 {
     if (Can::Available()) {
-        EBrytecCan::CanExtFrame frame = Can::GetCanMsg();
+        Brytec::CanExtFrame frame = Can::GetCanMsg();
         app.brytecCanReceived(frame);
     }
 }
@@ -81,7 +81,7 @@ int main()
 
     // Serial::Init(0, BAUD9600);
 
-    BinaryDeserializer des;
+    Brytec::BinaryDeserializer des;
     app.deserializeModule(des);
 
     // if (EBrytecApp::isDeserializeOk())
