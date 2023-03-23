@@ -39,7 +39,7 @@ void OutputStateAndPullups()
     PORTA = 0b11110000;
     PORTC = 0b11111111;
     PORTD = 0b11111111;
-    PORTE = 0b11110000;
+    PORTE = 0b11110100;
     PORTF |= (1 << PINF0) | (1 << PINF7);
     PORTH = 0b00000000;
     PORTJ = 0b11111111;
