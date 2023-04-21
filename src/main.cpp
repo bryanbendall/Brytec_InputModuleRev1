@@ -1,10 +1,13 @@
 #include <avr/io.h>
 
-#include "Serial.h"
 #include "Can.h"
+#include "Serial.h"
+#include "pgmspace.h"
 #include <EBrytecApp.h>
 #include <avr/interrupt.h>
 #include <util/atomic.h>
+
+#include "Program.h"
 
 Brytec::EBrytecApp app;
 
@@ -82,6 +85,7 @@ int main()
     // Serial::Init(0, BAUD9600);
 
     Brytec::BinaryDeserializer des;
+    des.setData(progmem_data, sizeof(progmem_data));
     app.deserializeModule(des);
 
     // if (EBrytecApp::isDeserializeOk())
