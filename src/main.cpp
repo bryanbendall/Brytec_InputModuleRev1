@@ -84,8 +84,7 @@ int main()
 
     // Serial::Init(0, BAUD9600);
 
-    Brytec::BinaryDeserializer des;
-    des.setData(progmem_data, sizeof(progmem_data));
+    Brytec::BinaryDeserializer des(progmem_data, sizeof(progmem_data));
     app.deserializeModule(des);
 
     // if (EBrytecApp::isDeserializeOk())
