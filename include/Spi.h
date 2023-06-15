@@ -18,7 +18,7 @@ public:
     Spi() = default;
 
     void SpiInit(int ssPin);
-    char SpiTransfer(char data);
+    uint8_t SpiTransfer(uint8_t data);
     void SSEnable();
     void SSDisable();
 };

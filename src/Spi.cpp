@@ -22,7 +22,7 @@ void Spi::SpiInit(int ssPin)
     SPSR |= (1 << SPI2X); // clock rate fck/2
 }
 
-char Spi::SpiTransfer(char data)
+uint8_t Spi::SpiTransfer(uint8_t data)
 {
     SPDR = data;
     while (!(SPSR & (1 << SPIF)))
