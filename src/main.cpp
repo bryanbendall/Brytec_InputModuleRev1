@@ -1,16 +1,9 @@
 #include <avr/io.h>
 
 #include "Can.h"
-#include "Deserializer/BinaryProgmemDeserializer.h"
-#include "Serial.h"
 #include <EBrytecApp.h>
 #include <avr/interrupt.h>
-#include <avr/pgmspace.h>
 #include <util/atomic.h>
-
-#include "Program.h"
-
-Brytec::EBrytecApp app;
 
 // Variables
 volatile uint64_t milli = 0;
@@ -72,7 +65,7 @@ void checkCan()
 {
     if (Can::Available()) {
         Brytec::CanExtFrame frame = Can::GetCanMsg();
-        app.brytecCanReceived(frame);
+        Brytec::EBrytecApp::brytecCanReceived(frame);
     }
 }
 
@@ -83,18 +76,7 @@ int main()
     SetUpTimer0();
     SetUpADC();
 
-    // Serial::Init(0, BAUD9600);
-
-    Brytec::BinaryProgmemDeserializer des(progmem_data, sizeof(progmem_data));
-    app.deserializeModule(des);
-
-    // if (EBrytecApp::isDeserializeOk())
-    //     Serial::SendString("Des succ", 8, true);
-    // else
-    //     Serial::SendString("Des fail", 8, true);
-
-    app.setupModule();
-    app.setupPins();
+    Brytec::EBrytecApp::initalize();
 
     while (1) {
 
@@ -103,7 +85,7 @@ int main()
             float timestep = ((float)difference * 0.001f);
             lastMillis = milli;
 
-            app.update(timestep);
+            Brytec::EBrytecApp::update(timestep);
         }
         checkCan();
     }

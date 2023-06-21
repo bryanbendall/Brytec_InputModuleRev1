@@ -2,8 +2,22 @@
 
 #include "Can.h"
 #include "InputModuleRev1Defines.h"
+#include <Deserializer/BinaryProgmemDeserializer.h>
+#include <avr/interrupt.h>
+#include <avr/pgmspace.h>
+
+#include "Program.h"
 
 namespace Brytec {
+
+// Progmem
+Brytec::BinaryProgmemDeserializer des(progmem_data, sizeof(progmem_data));
+
+BinaryDeserializer* BrytecBoard::getDeserializer()
+{
+    des = Brytec::BinaryProgmemDeserializer(progmem_data, sizeof(progmem_data));
+    return &des;
+}
 
 void BrytecBoard::error(EBrytecErrors error)
 {
@@ -17,6 +31,12 @@ void BrytecBoard::setupBrytecCan(uint32_t mask, uint32_t filter)
 void BrytecBoard::setupPin(uint16_t index, IOTypes::Types type)
 {
     // Done in main file
+}
+
+void BrytecBoard::shutdownAllPins()
+{
+    for (uint16_t i = BT_PIN_Black_2; i < BT_PIN_Blue_13; i++)
+        setPinValue(i, IOTypes::Types::Undefined, 0.0f);
 }
 
 float AnalogVoltage(int pin)
@@ -42,8 +62,8 @@ float AnalogVoltage(int pin)
     while ((ADCSRA & (1 << ADSC)))
         ; // Wait until adc is done conversion
 
-    char low = ADCL;
-    char high = ADCH;
+    uint8_t low = ADCL;
+    uint8_t high = ADCH;
     uint16_t reading = ((high << 8) | low);
 
     return (float)reading / (1023.0f / 5.0f);
@@ -166,7 +186,42 @@ void BrytecBoard::setPinValue(uint16_t index, IOTypes::Types type, float value)
 
 void BrytecBoard::sendBrytecCan(CanExtFrame frame)
 {
+    cli();
     Can::SendCanMsg(frame);
+    sei();
 }
 
+void BrytecBoard::ReserveConfigSize(uint16_t size)
+{
+}
+
+void BrytecBoard::updateConfig(uint8_t* data, uint32_t size, uint32_t offset)
+{
+}
+
+uint32_t BrytecBoard::getTemplateSize()
+{
+    return sizeof(moduleTemplate);
+}
+
+void BrytecBoard::getTemplateData(uint8_t* dest, uint32_t offset, uint32_t length)
+{
+    if (offset > sizeof(moduleTemplate))
+        return;
+
+    memcpy_P(dest, &moduleTemplate[offset], length);
+}
+
+uint32_t BrytecBoard::getConfigSize()
+{
+    return sizeof(progmem_data);
+}
+
+void BrytecBoard::getConfigData(uint8_t* dest, uint32_t offset, uint32_t length)
+{
+    if (offset > sizeof(progmem_data))
+        return;
+
+    memcpy_P(dest, &progmem_data[offset], length);
+}
 }
